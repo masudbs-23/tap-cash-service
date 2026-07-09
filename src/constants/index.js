@@ -1,0 +1,28 @@
+module.exports = {
+  TRANSACTION_STATUS: {
+    PENDING: 'PENDING',
+    RESERVED: 'RESERVED',
+    SUCCESS: 'SUCCESS',
+    FAILED: 'FAILED',
+  },
+  TRANSACTION_TYPE: {
+    SEND_MONEY: 'SEND_MONEY',
+    REFERRAL_BONUS: 'REFERRAL_BONUS',
+    WELCOME_BONUS: 'WELCOME_BONUS',
+  },
+  OTP: {
+    FIXED_OTP: '1234',
+    OTP_EXPIRY_MINUTES: 5,
+  },
+  WALLET: {
+    INITIAL_BALANCE: 50,
+    REFERRAL_BONUS: 20,
+  },
+  PIN: {
+    LENGTH: 4,
+  },
+  RESPONSE: {
+    SUCCESS: true,
+    ERROR: false,
+  },
+};
