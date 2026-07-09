@@ -2,6 +2,18 @@ const WalletModel = require('../models/WalletModel');
 const UserModel = require('../models/UserModel');
 const { successResponse, errorResponse } = require('../helpers/responseHelper');
 
+exports.getBalance = async (req, res, next) => {
+  try {
+    const userId = req.user.userId;
+
+    const balance = await WalletModel.getBalance(userId);
+
+    return successResponse(res, 'Balance retrieved successfully', balance);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.sendMoney = async (req, res, next) => {
   try {
     const userId = req.user.userId;

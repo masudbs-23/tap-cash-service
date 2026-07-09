@@ -140,6 +140,31 @@ exports.verifyOtp = async (phone, otp) => {
   };
 };
 
+exports.resendOtp = async (phone) => {
+  const user = await User.findOne({ where: { phone } });
+
+  if (!user) {
+    throw new Error('User not found');
+  }
+
+  if (user.is_verified) {
+    throw new Error('Account already verified');
+  }
+
+  const otpExpiry = new Date();
+  otpExpiry.setMinutes(otpExpiry.getMinutes() + OTP.OTP_EXPIRY_MINUTES);
+
+  await user.update({
+    otp: OTP.FIXED_OTP,
+    otp_expiry: otpExpiry,
+  });
+
+  return {
+    phone: user.phone,
+    message: 'OTP resent successfully',
+  };
+};
+
 exports.login = async (phone, pin) => {
   const user = await User.findOne({ where: { phone } });
 

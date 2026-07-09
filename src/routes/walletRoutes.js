@@ -6,6 +6,8 @@ const walletController = require('../controllers/walletController');
 
 const router = express.Router();
 
+router.get('/balance', authenticate, walletController.getBalance);
+
 router.post(
   '/send-money',
   authenticate,

@@ -21,6 +21,23 @@ exports.getWalletByUserId = async (userId) => {
   return wallet;
 };
 
+exports.getBalance = async (userId) => {
+  const wallet = await Wallet.findOne({
+    where: { user_id: userId },
+    attributes: ['balance', 'reserved_balance'],
+  });
+
+  if (!wallet) {
+    throw new Error('Wallet not found');
+  }
+
+  return {
+    balance: parseFloat(wallet.balance),
+    reserved_balance: parseFloat(wallet.reserved_balance),
+    available_balance: parseFloat(wallet.balance) - parseFloat(wallet.reserved_balance),
+  };
+};
+
 exports.getWalletById = async (walletId) => {
   const wallet = await Wallet.findByPk(walletId, {
     include: [

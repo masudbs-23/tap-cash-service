@@ -30,6 +30,18 @@ exports.verifyOtp = async (req, res, next) => {
   }
 };
 
+exports.resendOtp = async (req, res, next) => {
+  try {
+    const { phone } = req.body;
+
+    const result = await UserModel.resendOtp(phone);
+
+    return successResponse(res, 'OTP resent successfully', result);
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.login = async (req, res, next) => {
   try {
     const { phone, pin } = req.body;

@@ -52,6 +52,19 @@ router.post(
 );
 
 router.post(
+  '/resend-otp',
+  [
+    body('phone')
+      .notEmpty()
+      .withMessage('Phone number is required')
+      .matches(/^[0-9]+$/)
+      .withMessage('Phone number must contain only digits'),
+  ],
+  validateRequest,
+  authController.resendOtp
+);
+
+router.post(
   '/login',
   [
     body('phone')
